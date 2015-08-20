@@ -1,9 +1,10 @@
-.navbar {
-	opacity: .8;
-	margin:0;
-	border-radius:0;
+#topMenu{
+	height:50px;
+	background-color: lightblue;
 }
 
-.navbar-header{
-
+.topMenuButton{
+	height:90%;
+	width:5%;
+	min-width:50px;
 }
