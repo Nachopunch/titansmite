@@ -1,0 +1,100 @@
+{
+  "gods": [
+    {
+      "name": "Agni",
+      "shortname": "agni",
+      "class": "Mage",
+      "pantheon": "Hindu"
+    },
+    {
+      "name": "Ah Muzen Cab",
+      "shortname": "ah_muzen_cab",
+      "class": "Hunter",
+      "pantheon": "Mayan"
+    },
+    {
+      "name": "Ah Puch",
+      "shortname": "ah_puch",
+      "class": "Mage",
+      "pantheon": "Mayan"
+    },
+    {
+      "name": "Anhur",
+      "shortname": "anhur",
+      "class": "Hunter",
+      "pantheon": "Egyptian"
+    },
+    {
+      "name": "Anubis",
+      "shortname": "anubis",
+      "class": "Mage",
+      "pantheon": "Egyptian"
+    },
+    {
+      "name": "Ao Kuang",
+      "shortname": "ao_kuang",
+      "class": "Mage",
+      "pantheon": "Chinese"
+    },
+    {
+      "name": "Aphrodite",
+      "shortname": "aphrodite",
+      "class": "Mage",
+      "pantheon": "Greek"
+    },
+    {
+      "name": "Apollo",
+      "shortname": "apollo",
+      "class": "Hunter",
+      "pantheon": "Greek"
+    },
+    {
+      "name": "Arachne",
+      "shortname": "arachne",
+      "class": "Assasin",
+      "pantheon": "Greek"
+    },
+    {
+      "name": "Ares",
+      "shortname": "ares",
+      "class": "Guardian",
+      "pantheon": "Greek"
+    },
+    {
+      "name": "Artemis",
+      "shortname": "artemis",
+      "class": "Hunter",
+      "pantheon": "Greek"
+    },
+    {
+      "name": "Athena",
+      "shortname": "athena",
+      "class": "Guardian",
+      "pantheon": "Greek"
+    },
+    {
+      "name": "Awilix",
+      "shortname": "awilix",
+      "class": "Assasin",
+      "pantheon": "Mayan"
+    },
+    {
+      "name": "Bacchus",
+      "shortname": "bacchus",
+      "class": "Guardian",
+      "pantheon": "Roman"
+    },
+    {
+      "name": "Bakasura",
+      "shortname": "bakasura",
+      "class": "Assasin",
+      "pantheon": "Hindu"
+    },
+    {
+      "name": "Bastet",
+      "shortname": "bastet",
+      "class": "Assasin",
+      "pantheon": "Egyptian"
+    }
+  ]
+}

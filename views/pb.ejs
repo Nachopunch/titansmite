@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <% include ./partials/head.ejs %>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/pb.css' />
+  </head>
+  <body>
+    <div class="container-fluid" id="window">
+  	<% include ./partials/navigation.ejs %>
+
+      <div class="container-fluid" id="totalArea">
+
+        <div class="col-md-2" id="leftTeamColumn">
+          <div class="row banWindow" id="leftBans"><p>Bans:</p></div>
+          <div class="row pickBox blueWindow" id="blueWindow0"><p>Player 1</p></div>
+          <div class="row pickBox blueWindow" id="blueWindow1"><p>Player 2</p></div>
+          <div class="row pickBox blueWindow" id="blueWindow2"><p>Player 3</p></div>
+          <div class="row pickBox blueWindow" id="blueWindow3"><p>Player 4</p></div>
+          <div class="row pickBox blueWindow" id="blueWindow4"><p>Player 5</p></div>
+        </div> <!-- ~~~~~~~~~~ leftTeamColumn ~~~~~~~ -->
+
+        <div class="col-md-5" id="middleColumn">
+
+          <div class="row" id="statusWindow">
+            <!--<div class="notify" id="leftNotify"> -->
+                <div class="col-md-6 teamName" id="blueTeamName">ORDER</div>
+                <!--<div class="status flashing" id="leftStatus"><<< BANNING</div>  -->
+            <!--</div>-->
+              <!--<div id="timer"><p>:00</p></div>-->
+            <!--<div class="notify" id="rightNotify"> -->
+                <div class="col-md-6 teamName" id="redTeamName">CHAOS</div>
+               <!-- <div class="status flashing" id="rightStatus">BANNING >>></div> -->
+            <!--</div>-->
+          </div>
+
+            <div class="row" id="godWindow"></div>
+            <div class="row" id="buttonPanel"></div>
+
+        </div><!-- ~~~~~~ middle Column ~~~~~~~~ -->
+
+        <div class="col-md-2" id="rightTeamColumn">
+          <div class="row banWindow" id="rightBans"><p>Bans:</p></div>
+          <div class="row pickBox redWindow" id="redWindow0"><p>Player 1</p></div>
+          <div class="row pickBox redWindow" id="redWindow1"><p>Player 2</p></div>
+          <div class="row pickBox redWindow" id="redWindow2"><p>Player 3</p></div>
+          <div class="row pickBox redWindow" id="redWindow3"><p>Player 4</p></div>
+          <div class="row pickBox redWindow" id="redWindow4"><p>Player 5</p></div>
+        </div>
+
+         <!--      <div class="button" id="lockBtn"><p id="lockBtnTxt">Start</p></div>
+              <div class="button" id="resetBtn"><p>Reset</p></div>
+              <div class="button" id="randomBtn"><p>Random</p></div>
+             -->
+
+         <!--    <div id="infoWindow">
+              <div id="godCard"><p>God stats and info coming soon</p></div>
+              <div id="godInfo"></div>
+              <div id="sponsor"><img src="images/smitelogo.png"></img></div>
+            </div> -->
+          </div> <!-- ~~~~~~~~~~~~~~~~~~~~totalarea~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <% include ./partials/scripts.ejs %>
+
+	 <script type="text/javascript" src="/javascripts/resize.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,54 @@
+.content div {
+	padding:0;
+	margin:0;
+
+}
+
+#middleColumn, #leftTeamColumn, #rightTeamColumn {
+	height:100%;
+	padding:0;
+}
+
+.pickBox, .banWindow{
+	border: 2px solid yellow;
+}
+
+#totalArea {
+	background-color: gray;
+	overflow:hidden;
+	width:100%;
+	margin:0;
+}
+
+#statusWindow {
+	height:15%;
+	background-color:gray;
+	border:2px solid yellow;
+}
+
+.banWindow {
+	height:15%;
+	background-color:red;
+}
+
+.teamName {
+	height:20%;
+	background-color:purple;
+}
+
+#godWindow{
+	height:60%;
+	background-color:blue;
+	border:2px solid yellow;
+}
+
+#buttonPanel {
+	height:30%;
+	background-color: green;
+	border:2px solid yellow;
+}
+
+.pickBox {
+	height:17%;
+	background-color:orange;
+}

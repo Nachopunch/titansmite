@@ -1,0 +1,27 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#content {
+	margin-top:-20px;
+	height: 200px;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
+    user-drag: none;
+}
+
+.container-fluid {
+	padding:0;
+}
