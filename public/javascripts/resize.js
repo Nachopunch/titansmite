@@ -1,12 +1,20 @@
 $(document).ready(function(){
 
 	function resizeContent(){
-		var newHeight = $(window).height();
-		var newWidth = $(window).width();
-		var navHeight = $('.navbar').height();
-		var navWidth = $('.navbar').width();
-		$('#totalArea').height(newWidth*0.5+"px");
-		$('#totalArea').width(navWidth+"px");
+		var contentRatio = 1480/800;
+		var windowHeight = $(window).height();
+		var windowWidth = $(window).width();
+		var windowRatio = windowWidth/windowHeight;
+		var topMenuHeight = $('#topMenu').height();
+	
+		if (windowRatio > contentRatio){
+			$('#content').height(Math.floor(windowHeight-topMenuHeight)+"px");
+			$('#content').width(Math.floor(windowHeight*contentRatio)+"px");
+		} else {
+			$('#content').width(Math.floor(windowWidth)+"px");
+			$('#content').height(Math.floor(windowWidth/contentRatio)+"px") ;
+		}
+
 	};
 
 	resizeContent();

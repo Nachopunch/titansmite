@@ -1,6 +1,8 @@
 #topMenu{
 	height:50px;
-	background-color: lightblue;
+	background-color:rgb(10,30,60);
+	vertical-align:center;
+	min-width:1280px;
 }
 
 .topMenuButton{

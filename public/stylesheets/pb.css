@@ -1,25 +1,134 @@
 html,
 body {
   height: 100%;
-  margin: 0
+  margin: 0;
+
+}
+
+body{
+	background: linear-gradient(rgb(90,90,90), rgb(60,60,60));
+}
+
+.window {
+	background-color:rgb(60,70,80);
+	border:2px solid rgb(10,25,25);
+	border-radius:.5em;
+}
+
+.button {
+	border: 5px outset gray;
+	border-radius:5px;
+}
+
+.buttonPressed{
+	border-style: inset;
 }
 
 #content{
-	height:100%;
-	min-height:600px;
-	min-width:800px;
-	background-color:red;
 
+	height:800px;
+	width:1480px;
+
+	background-color:gray;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:1%;
 }
 
 .pbColumn{
-	width:15%;
 	height:100%;
-	background-color:green;
+	background-color:rgb(30,40,55);
 	display:inline-block;
+	float:left;
+	padding-left:1%;
+	padding-right:1%;
+	border:2px solid #2D3B4A;
 }
 
 #leftTeamColumn{
-	background-color:blue;
+
+	width:15%;
 }
 
+#rightTeamColumn{
+
+
+	width:15%;
+}
+
+#middleColumn {
+	width:50%;
+	border-left:0;
+	border-right:0;
+}
+
+.pickBox{
+	height:15%;
+	width:100%;
+	margin-top:6%;
+	border-radius:.5em;
+}
+
+.leftPickBox{
+
+}
+.rightPickBox{
+
+}
+
+
+#statusWindow{
+	position:relative;
+	width:100%;
+	height:8%;
+	top: 2%;
+}
+
+#godsWindow{
+	width:100%;
+	height:65%;
+	margin-top:4%;
+	padding:1%;
+	overflow-y:scroll;
+}
+
+.godBox{
+	display:inline-block;
+	margin:3px;
+	width:76px;
+	height:76px;
+	background-color:gray;
+	
+}
+.selected {
+	border: 5px outset yellow;
+}
+
+.godBox:hover{
+	cursor: pointer;
+}
+
+.godBox img {
+	width:100%;
+	height:100%;
+	opacity:.5;
+}
+
+#buttonWindow{
+	height:20%;
+	width:100%;
+	margin-top:2%;
+}
+
+.pickName{
+	font: 16px "Josefin", sans-serif;
+	background-color:rgb(80,95,100);
+
+	border-radius:.35em;
+	padding-left:3%;
+	border-bottom:1px solid rgb(120,130,140);
+}
+
+#settingsColumn{
+	width:20%;
+}

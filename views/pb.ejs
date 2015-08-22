@@ -7,21 +7,55 @@
     <link rel='stylesheet' href='/stylesheets/pb.css' />
   </head>
   <body>
-    <div id="content">
 
-  	    <% include ./partials/navigation.ejs %>
+  <% include ./partials/navigation.ejs %>
+  
+    <div class="container" id="content">
+
+  	    
 
 
-        <div class="pbColumn" id="leftTeamColumn"> </div> <!-- ~~~~~~~~~~ leftTeamColumn ~~~~~~~ -->
+        <div class="pbColumn noselect" id="leftTeamColumn">
+          <div class="window pickBox leftPickBox" id="leftBanBox"><p class="pickName">Bans</p></div>
+          <div class="window pickBox leftPickBox" id="leftPickBox1"><p class="pickName">Name Test</p></div>
+          <div class="window pickBox leftPickBox" id="leftPickBox2"><p class="pickName">Name Test</p></div>
+          <div class="window pickBox leftPickBox" id="leftPickBox3"><p class="pickName">Name Test</p></div>
+          <div class="window pickBox leftPickBox" id="leftPickBox4"><p class="pickName">Name Test</p></div>
+          <div class="window pickBox leftPickBox" id="leftPickBox5"><p class="pickName">Name Test</p></div>
 
+        </div>  <!-- ~~~~~~~~~~ leftTeamColumn ~~~~~~~ -->
 
-        <div class="pbColumn" id="RightTeamColumn"> </div> <!-- ~~~~~~~~~~ RightTeamColumn ~~~~~~~ -->
+        <div class="pbColumn noselect" id="middleColumn">
+          <div class="window" id="statusWindow"></div>
+          <div class="window" id="godsWindow">
+          </div>
+
+          <div class="window" id="buttonWindow"></div>
+
+        </div> 
+
+        <div class="pbColumn noselect" id="rightTeamColumn">
+          <div class="window pickBox rightPickBox" id="rightBanBox"><p class="pickName">Bans</p></div>
+          <div class="window pickBox rightPickBox" id="rightPickBox1"><p class="pickName">Name Test</p></div>
+          <div class="window pickBox rightPickBox" id="rightPickBox2"><p class="pickName">Name Test</p></div>
+          <div class="window pickBox rightPickBox" id="rightPickBox3"><p class="pickName">Name Test</p></div>
+          <div class="window pickBox rightPickBox" id="rightPickBox4"><p class="pickName">Name Test</p></div>
+          <div class="window pickBox rightPickBox" id="rightPickBox5"><p class="pickName">Name Test</p></div>
+        </div> <!-- ~~~~~~~~~~ RightTeamColumn ~~~~~~~ -->
+
+        <div class="pbColumn" id="settingsColumn"></div>
 
     </div> <!-- ~~~~~ content ~~~~~ -->
+  
 
       <% include ./partials/scripts.ejs %>
 
-	 <!--<script type="text/javascript" src="/javascripts/resize.js"></script> -->
+<script type="text/javascript" src="/javascripts/pb.js"></script> 
+   <!--<script type="text/javascript" src="/javascripts/resize.js"></script>-->
 
+      <script type="text/javascript">
+
+
+      </script>
   </body>
 </html>
