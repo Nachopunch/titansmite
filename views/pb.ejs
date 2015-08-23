@@ -16,12 +16,16 @@
 
 
         <div class="pbColumn noselect" id="leftTeamColumn">
-          <div class="window pickBox leftPickBox" id="leftBanBox"><p class="pickName">Bans</p></div>
-          <div class="window pickBox leftPickBox" id="leftPickBox1"><p class="pickName">Name Test</p></div>
-          <div class="window pickBox leftPickBox" id="leftPickBox2"><p class="pickName">Name Test</p></div>
-          <div class="window pickBox leftPickBox" id="leftPickBox3"><p class="pickName">Name Test</p></div>
-          <div class="window pickBox leftPickBox" id="leftPickBox4"><p class="pickName">Name Test</p></div>
-          <div class="window pickBox leftPickBox" id="leftPickBox5"><p class="pickName">Name Test</p></div>
+          <div class="window pickBox leftPickBox" id="leftBanBox"><p class="pickName">Bans</p>
+            <div class="banIcon" id="pick0"></div>
+            <div class="banIcon" id="pick2"></div>
+            <div class="banIcon" id="pick11"></div>
+          </div>
+          <div class="window pickBox leftPickBox"><p class="pickName">Name Test</p><div class="pickIcon" id="pick4"></div></div>
+          <div class="window pickBox leftPickBox"><p class="pickName">Name Test</p><div class="pickIcon" id="pick7"></div></div>
+          <div class="window pickBox leftPickBox"><p class="pickName">Name Test</p><div class="pickIcon" id="pick8"></div></div>
+          <div class="window pickBox leftPickBox"><p class="pickName">Name Test</p><div class="pickIcon" id="pick13"></div></div>
+          <div class="window pickBox leftPickBox"><p class="pickName">Name Test</p><div class="pickIcon" id="pick14"></div></div>
 
         </div>  <!-- ~~~~~~~~~~ leftTeamColumn ~~~~~~~ -->
 
@@ -30,17 +34,24 @@
           <div class="window" id="godsWindow">
           </div>
 
-          <div class="window" id="buttonWindow"></div>
+          <div class="window" id="buttonWindow">
+            <button id="lockButton">Lock</button>
+            <button id="resetButton">Reset</button>
+          </div>
 
         </div> 
 
         <div class="pbColumn noselect" id="rightTeamColumn">
-          <div class="window pickBox rightPickBox" id="rightBanBox"><p class="pickName">Bans</p></div>
-          <div class="window pickBox rightPickBox" id="rightPickBox1"><p class="pickName">Name Test</p></div>
-          <div class="window pickBox rightPickBox" id="rightPickBox2"><p class="pickName">Name Test</p></div>
-          <div class="window pickBox rightPickBox" id="rightPickBox3"><p class="pickName">Name Test</p></div>
-          <div class="window pickBox rightPickBox" id="rightPickBox4"><p class="pickName">Name Test</p></div>
-          <div class="window pickBox rightPickBox" id="rightPickBox5"><p class="pickName">Name Test</p></div>
+          <div class="window pickBox rightPickBox" id="rightBanBox"><p class="pickName">Bans</p>
+            <div class="banIcon" id="pick1"></div>
+            <div class="banIcon" id="pick3"></div>
+            <div class="banIcon" id="pick10"></div>
+          </div>
+          <div class="window pickBox rightPickBox"><p class="pickName">Name Test</p><div class="pickIcon" id="pick5"></div></div>
+          <div class="window pickBox rightPickBox"><p class="pickName">Name Test</p><div class="pickIcon" id="pick6"></div></div>
+          <div class="window pickBox rightPickBox"><p class="pickName">Name Test</p><div class="pickIcon" id="pick9"></div></div>
+          <div class="window pickBox rightPickBox"><p class="pickName">Name Test</p><div class="pickIcon" id="pick12"></div></div>
+          <div class="window pickBox rightPickBox"><p class="pickName">Name Test</p><div class="pickIcon" id="pick15"></div></div>
         </div> <!-- ~~~~~~~~~~ RightTeamColumn ~~~~~~~ -->
 
         <div class="pbColumn" id="settingsColumn"></div>
@@ -49,7 +60,7 @@
   
 
       <% include ./partials/scripts.ejs %>
-
+<script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="/javascripts/pb.js"></script> 
    <!--<script type="text/javascript" src="/javascripts/resize.js"></script>-->
 
