@@ -39,23 +39,33 @@ server.on('listening', onListening);
 
 var serverPicks =[];
 
+console.log('created serverPicks: '+serverPicks);
+
 io.on('connection', function (socket){
 
   socket.emit('init', serverPicks);
 
   socket.on('clientLock', function (data){
-    io.emit('serverLock', data);
 
     if (data && serverPicks.length < 16){
+      io.emit('serverLock', data);
       serverPicks.push(data);
-      console.log(serverPicks);
+      console.log('client '+socket.id+' has picked '+data);
+      console.log('current picks(server): '+serverPicks);
     }
   });
 
   socket.on('reset', function (){
     serverPicks = [];
+    console.log('The picks have been reset(server): '+serverPicks);
     io.emit('init', serverPicks)
   });
+
+  socket.on('undo', function(){
+    serverPicks.pop();
+    console.log('Last pick was undone, new current picks(server): '+serverPicks);
+    io.emit('serverUndo', serverPicks);
+  })
 });
 
 

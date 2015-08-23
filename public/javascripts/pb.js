@@ -26,7 +26,8 @@ $(document).ready(function(){
 		});
 
 		var picks = [];
-		var socket = io.connect('http://107.170.246.231:80');			console.log(socket);
+		
+		var socket = io.connect('http://localhost:80');			console.log(socket);
 
 		socket.on('serverLock', function (data){
 			var currentPhase = picks.length;
@@ -43,12 +44,26 @@ $(document).ready(function(){
 			drawPicks(picks);
 		})
 
+		socket.on('serverUndo', function (data){
+			$('#pick'+(picks.length-1)).empty();
+			picks = data;
+
+			console.log('current picks(client): '+picks);
+
+		})
+
+
+
 		$('#lockButton').click(function(){
 			socket.emit('clientLock', selectedGod);
 		})
 
 		$('#resetButton').click(function(){
 			socket.emit('reset');
+		})
+
+		$('#undoButton').click(function(){
+			socket.emit('undo');
 		})
 	});
 
