@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 		var picks = [];
 		var phase = picks.length;
-		var socket = io.connect('http://localhost:80');			console.log(socket);
+		var socket = io.connect('http://107.170.246.231:80');			console.log(socket);
 
 		socket.on('serverLock', function (data){
 			
