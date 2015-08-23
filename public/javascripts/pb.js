@@ -42,6 +42,7 @@ $(document).ready(function(){
 			$('.godBox[id='+data+']').addClass('unavailable');
 			$('#name'+phase).html(findLongName(data));
 			phase = picks.length;
+			highlightNextPick(phase);
 			console.log('(client) Phase: ' + phase + '. Picks: '+picks);
 		});
 
@@ -49,6 +50,7 @@ $(document).ready(function(){
 			picks = data;
 			phase = picks.length;
 			drawAllPicks(picks, phase);
+			highlightNextPick(phase);
 			console.log('(client)Initiated; Phase: ' + phase + '. Picks: '+picks);
 		})
 
@@ -59,6 +61,7 @@ $(document).ready(function(){
 			phase = picks.length;
 			$('#name'+phase).empty();
 			console.log('(client) Phase: ' + phase + '. Picks: '+picks);
+			highlightNextPick(phase);
 
 		})
 
@@ -102,20 +105,98 @@ $(document).ready(function(){
 				}
 			}
 
-			picksArr.forEach(function (god){
+			highlightNextPick(phase);
+		}
 
-			})
+		function highlightNextPick(phase){
+			switch(phase){
+				case 0:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick0').addClass('nextPick');
+					break;
+				case 1:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick1').addClass('nextPick');
+					break;
+				case 2:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick2').addClass('nextPick');
+					break;
+				case 3:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick3').addClass('nextPick');
+					break;
+				case 4:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick4').addClass('nextPick');
+					break;
+				case 5:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick5').addClass('nextPick');
+					$('#pick6').addClass('nextPick');
+					break;
+				case 6:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick5').addClass('nextPick');
+					$('#pick6').addClass('nextPick');
+					break;
+				case 7:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick7').addClass('nextPick');
+					$('#pick8').addClass('nextPick');
+					break;
+				case 8:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick7').addClass('nextPick');
+					$('#pick8').addClass('nextPick');
+					break;
+				case 9:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick9').addClass('nextPick');
+					break;
+				case 10:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick10').addClass('nextPick');
+					break;
+				case 11:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick11').addClass('nextPick');
+					break;
+				case 12:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick12').addClass('nextPick');
+					break;
+				case 13:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick13').addClass('nextPick');
+					$('#pick14').addClass('nextPick');
+					break;
+				case 14:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick13').addClass('nextPick');
+					$('#pick14').addClass('nextPick');
+					break;
+				case 15:
+					$('.pickIcon').removeClass('nextPick');
+					$('.banIcon').removeClass('nextPick');
+					$('#pick15').addClass('nextPick');
+					break;
+			}
 		}
 	});
-
-
-
-
-	// function highlightNextPick(phase){
-	// 	switch(phase){
-	// 		case '0': $('.pickIcon')
-	// 	}
-	// }
-
-
 });
