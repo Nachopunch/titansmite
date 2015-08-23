@@ -38,6 +38,7 @@ server.on('listening', onListening);
 
 
 var serverPicks =[];
+var serverPhase = serverPicks.length;
 
 console.log('created serverPicks: '+serverPicks);
 
@@ -45,25 +46,37 @@ io.on('connection', function (socket){
 
   socket.emit('init', serverPicks);
 
+  // client lock handler~~~~~~~~~~~~~~~~~~~~~~
   socket.on('clientLock', function (data){
 
-    if (data && serverPicks.length < 16){
+    // check if new pick has already been picked
+    if (data && serverPicks.indexOf(data) === -1 && serverPhase < 16){
+      
+      //broadcast new pick to clients
       io.emit('serverLock', data);
       serverPicks.push(data);
+      phase = serverPicks.length;
       console.log('client '+socket.id+' has picked '+data);
-      console.log('current picks(server): '+serverPicks);
+      console.log('(server) Phase: ' + serverPhase + '. Picks: '+serverPicks);
+      console.log('current phase(server): '+phase);
     }
   });
 
+  //client reset handler~~~~~~~~~~~~~~~~~~~~
   socket.on('reset', function (){
     serverPicks = [];
+    serverPhase = serverPicks.length;
     console.log('The picks have been reset(server): '+serverPicks);
+    console.log('(server) Phase: ' + serverPhase + '. Picks: '+serverPicks);
     io.emit('init', serverPicks)
   });
 
+  //client undo handler~~~~~~~~~~~~~~~~~~~~~~~~
   socket.on('undo', function(){
     serverPicks.pop();
-    console.log('Last pick was undone, new current picks(server): '+serverPicks);
+    serverPhase = serverPicks.length;
+    console.log('Last pick was undone');
+    console.log('current picks(server): '+serverPicks);
     io.emit('serverUndo', serverPicks);
   })
 });

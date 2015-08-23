@@ -27,7 +27,7 @@ html{
 #content{
 
 	height:800px;
-	width:1480px;
+	width:1680px;
 
 	background-color:gray;
 	margin-left: auto;
@@ -70,33 +70,44 @@ html{
 }
 
 .pickIcon{
-	height:80%;
+	height:75%;
 	width:100%;
-	background-color: rgba(100,100,120, .5);
+	background-color: rgba(255,255,255, .1);
+	border-radius:.5em;
 }
 .pickIcon img {
-	height:80%;
+	height:100%;
 	width:100%;
+	border-radius:.5em;
 }
 .banIcon{
-	margin:auto;
-	margin-top:10%;
+	border-radius:.5em;
+	margin-top:4%;
 	display:inline-block;
-	height:50%;
+	height:60%;
 	width:31%;
-	background-color: rgba(100,100,120, .5);
+	background-color: rgba(255,255,255, .1);
+}
+
+.unavailable{
+	opacity: .3;
+}
+
+.nextPick {
+	background-color: rgba(255,255,255, .6);
 }
 
 .banIcon img{
 	height:100%;
 	width:100%;
+	border-radius:.5em;
 }
 
 .leftPickBox{
-
+	background-color: rgb(40,50,120);
 }
 .rightPickBox{
-
+	background-color: rgb(120,50,40);
 }
 
 
@@ -118,8 +129,8 @@ html{
 .godBox{
 	display:inline-block;
 	margin:3px;
-	width:76px;
-	height:76px;
+	width:78px;
+	height:78px;
 	background-color:gray;
 	
 }
@@ -127,7 +138,7 @@ html{
 	border: 5px outset yellow;
 }
 
-.godBox:hover{
+.button{
 	cursor: pointer;
 }
 
@@ -143,10 +154,11 @@ html{
 	margin-top:2%;
 }
 
-.pickName{
-	font: 16px "Josefin", sans-serif;
-	color:lightblue;
-	background-color:rgb(80,95,100);
+.boxTitle{
+	height:25%;
+	font: 24px "Josefin", sans-serif;
+	color:rgb(180,180,180);
+	
 
 	border-radius:.35em;
 	padding-left:3%;
@@ -158,18 +170,26 @@ html{
 }
 
 #lockButton {
+	position:relative;
+	top:20%;
+	left:25%;
 	height:40%;
 	width:20%;
 	margin:auto;
 }
 
 #resetButton{
-	height:40%;
-	width:20%;
+	position:relative;
+	top:20%;
+	height:30%;
+	width:15%;
 	float:right;
 }
 
 #undoButton{
-	height:40%;
-	width:20%;
+	position:relative;
+	top:20%;
+	height:30%;
+	width:15%;
+	float:left;
 }
