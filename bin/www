@@ -35,6 +35,8 @@ server.on('listening', onListening);
 
 
 
+// var pbServerModule = require('../modules/pbServerModule.js');
+// pbServerModule.init();
 
 
 var serverPicks =[];
@@ -48,6 +50,7 @@ io.on('connection', function (socket){
 
   // client lock handler~~~~~~~~~~~~~~~~~~~~~~
   socket.on('clientLock', function (data){
+    console.log("recieved clientLock: "+data);
 
     // check if new pick has already been picked
     if (data && serverPicks.indexOf(data) === -1 && serverPhase < 16){
@@ -55,10 +58,10 @@ io.on('connection', function (socket){
       //broadcast new pick to clients
       io.emit('serverLock', data);
       serverPicks.push(data);
-      phase = serverPicks.length;
+      serverPhase = serverPicks.length;
       console.log('client '+socket.id+' has picked '+data);
       console.log('(server) Phase: ' + serverPhase + '. Picks: '+serverPicks);
-      console.log('current phase(server): '+phase);
+      console.log('current phase(server): '+serverPhase);
     }
   });
 

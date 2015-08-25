@@ -33,11 +33,11 @@
 
           <div class="noselect window" id="buttonWindow">
            <button class="noselect button" id="undoButton">Undo</button> 
-           <button class="noselect button" id="lockButton">Lock</button>
+           <button class="noselect button" id="lockButton">Lock<br>(spacebar)</button>
            <button class="noselect button" id="resetButton">Reset</button>
           </div>
 
-        </div> 
+        </div>  <!-- ~~~~~~~~~ middle column ~~~~~~~~~~ -->
 
         <div class="pbColumn noselect" id="rightTeamColumn">
           <div class="window pickBox rightPickBox" id="rightBanBox"><p class="boxTitle">Bans</p>
@@ -57,14 +57,15 @@
     </div> <!-- ~~~~~ content ~~~~~ -->
   
 
-      <% include ./partials/scripts.ejs %>
-<script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="/javascripts/pb.js"></script> 
-   <!--<script type="text/javascript" src="/javascripts/resize.js"></script>-->
+    <% include ./partials/scripts.ejs %>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/javascripts/pbModule.js"></script>
+    <!--<script type="text/javascript" src="/javascripts/resize.js"></script>-->
 
-      <script type="text/javascript">
-
-
-      </script>
   </body>
 </html>
+
+<!-- 
+<div class="button godBox" id="{{godName}}">
+      <img src="/images/godicons/' +{{godName}}+ '.png"/>
+    </div> -->

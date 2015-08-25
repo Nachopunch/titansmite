@@ -5,6 +5,11 @@ body, div, nav{
   box-sizing: border-box;
 }
 
+html{
+	background: url('/images/backgrounds/titanbackground.png') center top fixed;
+	background-size:cover;
+}
+
 a {
   color: #00B7FF;
 }
@@ -13,6 +18,9 @@ a {
 
 }
 
+button:hover{
+	cursor: pointer;
+}
 
 .noselect {
     -webkit-touch-callout: none;
