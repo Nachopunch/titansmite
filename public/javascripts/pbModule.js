@@ -14,7 +14,7 @@ var pbModule = {
 	},
 	
 	getSocket: function(){
-		this.socket = io.connect('http://localhost:80');
+		this.socket = io.connect('http://107.170.246.231:80');
 		console.log(this.socket);
 	},
 
