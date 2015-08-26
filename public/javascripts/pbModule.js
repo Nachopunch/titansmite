@@ -2,7 +2,7 @@ var pbModule = (function(){
 	var gods = [];
 	var picks = [];
 	var selectedGod = "";
-	var phase = 0;
+	var phase = picks.length;
 	
 
 	//cache DOM
@@ -20,7 +20,7 @@ var pbModule = (function(){
 	//get json God Data
 	$.getJSON('/assets/goddata.json', startBoard);
 
-	var socket = io.connect('http://107.170.246.231:80');
+	var socket = io.connect('http://localhost:80');
 
 	function startBoard(jsonData){
 		gods = jsonData;
@@ -44,7 +44,6 @@ var pbModule = (function(){
 		$(document).mouseup(buttonUp);
 		$(document).keydown(function(event){
 			console.log(event);
-			
 			if((event.which === 32 || event.which === 13) && $('#notesInput').is(":focus") !== true && $('#draftNameInput').is(":focus") !== true){
 				event.preventDefault();
 				pressLockButton();
@@ -91,6 +90,7 @@ var pbModule = (function(){
 		phase = data.length;
 		console.log("board Synced to Server");
 		console.log(data);
+		console.log(phase);
 		drawPicks(data);
 		highlightNextPick();
 	}
@@ -100,7 +100,7 @@ var pbModule = (function(){
 		picks.push(data);
 		drawPicks(data);
 		phase = picks.length;
-		highlightNextPick;
+		highlightNextPick();
 	}
 
 	function undoLastPick(){
@@ -124,7 +124,7 @@ var pbModule = (function(){
 					$el.find('#pick'+key).html('<img class="noselect" src="/images/godicons/' +data[key]+ '.png">');
 				} else {
 					$el.find('#pick'+key).html('<img class="noselect" src="/images/widegodicons/W' +data[key]+ '.png">');
-					$el.find('#name'+key).html(this.findLongName(data[key]));
+					$el.find('#name'+key).html(findLongName(data[key]));
 				}
 			}
 		} else if(typeof data === 'string'){
@@ -160,7 +160,6 @@ var pbModule = (function(){
 				$pickIcons.removeClass('nextPick');
 				$banIcons.removeClass('nextPick');
 				$el.find('#pick2').addClass('nextPick');
-				
 				break;
 			case 3:
 				$pickIcons.removeClass('nextPick');
@@ -232,10 +231,23 @@ var pbModule = (function(){
 				break;
 		}
 	}
+	function showGods(){
+		console.log(gods);
+	}
+	function showPicks(){
+		console.log(picks);
+	}
+	function showPhase(){
+		console.log(phase);
+	}
 
 //exposed API
 	return{
-		pressResetButton: pressResetButton
+		pressResetButton: pressResetButton,
+		phase: showPhase,
+		picks:showPicks,
+		gods:showGods,
+		highlightNextPick: highlightNextPick
 
 	}
 })();
