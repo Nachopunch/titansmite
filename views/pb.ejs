@@ -52,15 +52,39 @@
           <div class="window pickBox rightPickBox"><p class="boxTitle pickName" id="name15"></p><div class="pickIcon" id="pick15"></div></div>
         </div> <!-- ~~~~~~~~~~ RightTeamColumn ~~~~~~~ -->
 
-        <div class="pbColumn" id="settingsColumn"></div>
+        <div class="pbColumn" id="settingsColumn">
+ 
+          <div class="window" id="notesWindow">
+            <p class="boxTitle" id="notesName">Notes</p>
+            
+              <textarea class="window" id="notesInput"></textarea>
+          
+          </div>
+          <br>
+          <div>
+            <p class="boxTitle" id="collectionName">Collection: </p>
+            <select id="collectionInput">
+              <option value='Test Collection'>Test Collection</option>
+            </select>
+            <button id="collectionAddButton">+</button>
+          </div>
+          <br>
+          <div>
+            <p class="boxTitle" id="draftName">Draft Name: </p>
+            <input id="draftNameInput" type="text"></input>
+          </div>
+          <br><br>
+          <button class ="noselect button" id="saveButton">Save</button>
+          
+          <button class ="noselect button" id="loadButton">View Saves</button>
+        </div>
 
     </div> <!-- ~~~~~ content ~~~~~ -->
-  
 
     <% include ./partials/scripts.ejs %>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/javascripts/pbModule.js"></script>
-    <!--<script type="text/javascript" src="/javascripts/resize.js"></script>-->
+    <script type="text/javascript" src="/javascripts/resize.js"></script>
 
   </body>
 </html>
