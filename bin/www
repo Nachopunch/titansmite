@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('titansmite:server');
 var http = require('http');
+var mongo = require('mongodb').MongoClient
 /**
  * Get port from environment and store in Express.
  */
@@ -35,54 +36,54 @@ server.on('listening', onListening);
 
 
 
-// var pbServerModule = require('../modules/pbServerModule.js');
-// pbServerModule.init();
+var pbServerModule = require('../modules/pbServerModule.js')(io, mongo);
 
 
-var serverPicks =[];
-var serverPhase = serverPicks.length;
 
-console.log('created serverPicks: '+serverPicks);
+// var serverPicks =[];
+// var serverPhase = serverPicks.length;
 
-io.on('connection', function (socket){
+// console.log('created serverPicks: '+serverPicks);
 
-  socket.emit('init', serverPicks);
+// io.on('connection', function (socket){
 
-  // client lock handler~~~~~~~~~~~~~~~~~~~~~~
-  socket.on('clientLock', function (data){
-    console.log("recieved clientLock: "+data);
+//   socket.emit('init', serverPicks);
 
-    // check if new pick has already been picked
-    if (data && serverPicks.indexOf(data) === -1 && serverPhase < 16){
+//   // client lock handler~~~~~~~~~~~~~~~~~~~~~~
+//   socket.on('clientLock', function (data){
+//     console.log("recieved clientLock: "+data);
+
+//     // check if new pick has already been picked
+//     if (data && serverPicks.indexOf(data) === -1 && serverPhase < 16){
       
-      //broadcast new pick to clients
-      io.emit('serverLock', data);
-      serverPicks.push(data);
-      serverPhase = serverPicks.length;
-      console.log('client '+socket.id+' has picked '+data);
-      console.log('(server) Phase: ' + serverPhase + '. Picks: '+serverPicks);
-      console.log('current phase(server): '+serverPhase);
-    }
-  });
+//       //broadcast new pick to clients
+//       io.emit('serverLock', data);
+//       serverPicks.push(data);
+//       serverPhase = serverPicks.length;
+//       console.log('client '+socket.id+' has picked '+data);
+//       console.log('(server) Phase: ' + serverPhase + '. Picks: '+serverPicks);
+//       console.log('current phase(server): '+serverPhase);
+//     }
+//   });
 
-  //client reset handler~~~~~~~~~~~~~~~~~~~~
-  socket.on('reset', function (){
-    serverPicks = [];
-    serverPhase = serverPicks.length;
-    console.log('The picks have been reset(server): '+serverPicks);
-    console.log('(server) Phase: ' + serverPhase + '. Picks: '+serverPicks);
-    io.emit('init', serverPicks)
-  });
+//   //client reset handler~~~~~~~~~~~~~~~~~~~~
+//   socket.on('reset', function (){
+//     serverPicks = [];
+//     serverPhase = serverPicks.length;
+//     console.log('The picks have been reset(server): '+serverPicks);
+//     console.log('(server) Phase: ' + serverPhase + '. Picks: '+serverPicks);
+//     io.emit('init', serverPicks)
+//   });
 
-  //client undo handler~~~~~~~~~~~~~~~~~~~~~~~~
-  socket.on('undo', function(){
-    serverPicks.pop();
-    serverPhase = serverPicks.length;
-    console.log('Last pick was undone');
-    console.log('current picks(server): '+serverPicks);
-    io.emit('serverUndo', serverPicks);
-  })
-});
+//   //client undo handler~~~~~~~~~~~~~~~~~~~~~~~~
+//   socket.on('undo', function(){
+//     serverPicks.pop();
+//     serverPhase = serverPicks.length;
+//     console.log('Last pick was undone');
+//     console.log('current picks(server): '+serverPicks);
+//     io.emit('serverUndo', serverPicks);
+//   })
+// });
 
 
 

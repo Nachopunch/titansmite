@@ -11,16 +11,22 @@ var pbModule = (function(){
 	var $lockButton = $el.find('#lockButton');
 	var $resetButton = $el.find('#resetButton');
 	var $undoButton = $el.find('#undoButton');
+	var $saveButton = $el.find('#saveButton');
 	var $pickIcons = $el.find('.pickIcon');
 	var $banIcons = $el.find('.banIcon');
 	var $pickNames = $el.find('.pickName');
+
+	var $draftNameInput = $el.find('#draftNameInput');
+	var $notesInput = $el.find('#notesInput');
+	var $collectionInput = $el.find('#collectionInput');
+
 	var $godBoxes = null;
 	var $buttons = null;
 
 	//get json God Data
 	$.getJSON('/assets/goddata.json', startBoard);
 
-	var socket = io.connect('http://107.170.246.231:80');
+	var socket = io.connect('http://localhost:80');
 
 	function startBoard(jsonData){
 		gods = jsonData;
@@ -54,6 +60,7 @@ var pbModule = (function(){
 		$lockButton.click(pressLockButton);
 		$resetButton.click(pressResetButton);
 		$undoButton.click(pressUndoButton);
+		$saveButton.click(pressSaveButton);
 		socket.on('init', syncPicks);
 		socket.on('serverLock', serverPickHandler);
 		socket.on('serverUndo', undoLastPick);
@@ -83,6 +90,15 @@ var pbModule = (function(){
 	}
 	function pressUndoButton(){
 		socket.emit('undo');
+	}
+
+	function pressSaveButton(){
+		socket.emit('save', {
+			title: $draftNameInput.val(),
+			picks: picks,
+			notes: $notesInput.val(),
+			collection: $collectionInput.val()
+		});
 	}
 
 	function syncPicks(data){
@@ -231,6 +247,11 @@ var pbModule = (function(){
 				break;
 		}
 	}
+
+
+
+
+
 	function showGods(){
 		console.log(gods);
 	}

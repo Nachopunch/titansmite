@@ -1,47 +1,82 @@
-
-var www = require('../bin/www');
-var io = require('socket.io')(www.server);
-var pbServerModule = {
+var pbServerModule = (function (io, mongo){
 
 
+	var serverPicks = [];
+	var serverPhase = 0;
+	// var serverBoardState = {
+	// 	title: "untitled",
+	// 	picks:
+	// };
 
-	serverPicks: [],
-	serverPhase: 0,
+	console.log('created serverPicks: '+serverPicks);
 
-	init: function(){
-		console.log('created serverPicks: '+this.serverPicks);
-		io.on('connection', function (socket){console.log(socket)});
-		// this.listenForSockets;
-	},
+	mongo.connect('mongodb://localhost/titansmite', function(err, db){
+		if (err) throw err;
+		console.log("client connected to database: "+ db)
 
-	listenForSockets: function(){
-		io.on('connection', function (socket){console.log(socket)}/*this.listenForSocketEvents(socket)*/);
-	},
+		var savesCol = db.collection('pbSaves');
 
-	listenForSocketEvents: function(socket){
-		console.log(socket);
-		socket.emit('init', this.serverPicks);
+		// listenForSockets;
+		io.on('connection', function (socket){
+			console.log("Client connected, new socket issued: "+socket.id);
 
-		socket.on('clientLock', this.recClientLock(socket).bind(this));
-	},
+			//=== Initiate board on socket connect ===
+			socket.emit('init', serverPicks);
 
-	recClientLock: function(data){
-		console.log("recieved clientLock: "+data);
+			//=== Listen for socket events ===
+			socket.on('clientLock', recClientLock);
+			socket.on('reset', recClientReset);
+			socket.on('undo', recClientUndo);
+			socket.on('save', saveDraft)
 
-		// check if new pick has already been picked
-	    if (data && this.serverPicks.indexOf(data) === -1 && this.serverPhase < 16){
+			//recieve client lock function
+			function recClientLock (data){
+				console.log("recieved clientLock: "+data);
 
-		      //broadcast new pick to clients
-		      io.emit('serverLock', data);
-		      this.serverPicks.push(data);
-		      this.serverPhase = this.serverPicks.length;
-		      console.log('client '+socket.id+' has picked '+data);
-		      console.log('(server) Phase: ' + this.serverPhase + '. Picks: '+this.serverPicks);
-		      console.log('current phase(server): '+this.serverPhase);
-		    }
-	}
-}
+				// check if new pick has already been picked
+			    if (data && serverPicks.indexOf(data) === -1 && serverPhase < 16){
 
+					//broadcast new pick to clients
+					io.emit('serverLock', data);
+					serverPicks.push(data);
+					serverPhase = serverPicks.length;
+					console.log('client '+socket.id+' has picked '+data);
+					console.log('(server) Phase: ' + serverPhase + '. Picks: '+serverPicks);
+					console.log('current phase(server): '+serverPhase);
+				}
+			}
+			//recieve client reset function
+			function recClientReset (){
+				serverPicks = [];
+				serverPhase = serverPicks.length;
+				console.log("The picks have been reset(server): "+serverPicks);
+				console.log('(server) Phase: ' + serverPhase + '. Picks: '+serverPicks);
+		    	io.emit('init', serverPicks);
+			}
+			//recieve client undo function
+			function recClientUndo (){
+				serverPicks.pop();
+				serverPhase = serverPicks.length;
+				console.log('Last pick was undone');
+				console.log('current picks(server): '+serverPicks);
+				io.emit('serverUndo', serverPicks);
+			}
+
+			function saveDraft(data){
+				var whitespacePatt = /^\s*$/
+				if(whitespacePatt.test(data.name) !== true){
+					savesCol.insert({
+						title: data.title,
+						picks: data.picks,
+						notes: data.notes,
+						collection: data.collection
+					});
+				}
+			}
+
+		});
+	});
+})
 
 
 
