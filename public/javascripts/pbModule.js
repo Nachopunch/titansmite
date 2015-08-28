@@ -3,7 +3,7 @@ var pbModule = (function(){
 	var picks = [];
 	var selectedGod = "";
 	var phase = picks.length;
-	
+	var saves = [];
 
 	//cache DOM
 	var $el = $('#content');
@@ -12,13 +12,16 @@ var pbModule = (function(){
 	var $resetButton = $el.find('#resetButton');
 	var $undoButton = $el.find('#undoButton');
 	var $saveButton = $el.find('#saveButton');
+	var $loadButton = $el.find('#loadButton');
 	var $pickIcons = $el.find('.pickIcon');
 	var $banIcons = $el.find('.banIcon');
 	var $pickNames = $el.find('.pickName');
+	var $statusWindow = $el.find('#statusWindow');
 
 	var $draftNameInput = $el.find('#draftNameInput');
 	var $notesInput = $el.find('#notesInput');
 	var $collectionInput = $el.find('#collectionInput');
+	var $viewSavesWindow = $el.find('#viewSavesWindow');
 
 	var $godBoxes = null;
 	var $buttons = null;
@@ -43,8 +46,21 @@ var pbModule = (function(){
 		$buttons = $el.find('.button');
 	}
 
+	function loadDraft (title){
+		console.log("loading: "+title);
+		$viewSavesWindow.css('display', 'none');
+		socket.emit('load', title)
+	}
+
 	function bindEvents (){
 		//local events
+		
+
+		$loadButton.click(function(){
+			$viewSavesWindow.css('display', 'block');
+			socket.emit('getSaves');
+		})
+
 		$godBoxes.click(selectGod);
 		$buttons.mousedown(buttonPress);
 		$(document).mouseup(buttonUp);
@@ -53,6 +69,9 @@ var pbModule = (function(){
 			if((event.which === 32 || event.which === 13) && $('#notesInput').is(":focus") !== true && $('#draftNameInput').is(":focus") !== true){
 				event.preventDefault();
 				pressLockButton();
+			}
+			if(event.which === 27){
+				$viewSavesWindow.css('display', 'none');
 			}
 		});
 
@@ -64,6 +83,22 @@ var pbModule = (function(){
 		socket.on('init', syncPicks);
 		socket.on('serverLock', serverPickHandler);
 		socket.on('serverUndo', undoLastPick);
+		socket.on('currentSaves', function(res){
+			$viewSavesWindow.empty();
+			res.forEach(function(save){
+				$viewSavesWindow.append('<div class="saveIcon" id="'+save.title+'">'+save.title+'</div>');
+			});
+
+			$('.saveIcon').click(function(){
+				loadDraft($(this).attr('id'));
+			});
+
+		});
+		socket.on('message', displayMessage)
+	}
+
+	function displayMessage (message){
+		$statusWindow.html("<p>"+message+"</p>")
 	}
 
 	function selectGod (){
@@ -102,12 +137,17 @@ var pbModule = (function(){
 	}
 
 	function syncPicks(data){
-		picks = data;
-		phase = data.length;
+		picks = data.picks;
+		console.log("syncing");
+		console.log(data);
+		phase = data.picks.length;
+		$notesInput.val(data.notes);
+		$collectionInput.val(data.collection);
+		$draftNameInput.val(data.title);
 		console.log("board Synced to Server");
 		console.log(data);
 		console.log(phase);
-		drawPicks(data);
+		drawPicks(data.picks);
 		highlightNextPick();
 	}
 

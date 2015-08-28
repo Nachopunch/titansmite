@@ -53,18 +53,20 @@
         </div> <!-- ~~~~~~~~~~ RightTeamColumn ~~~~~~~ -->
 
         <div class="pbColumn" id="settingsColumn">
- 
+
           <div class="window" id="notesWindow">
             <p class="boxTitle" id="notesName">Notes</p>
-            
-              <textarea class="window" id="notesInput"></textarea>
-          
+
+              <textarea class="window" id="notesInput" placeholder="(Enter notes)"></textarea>
+
           </div>
           <br>
           <div>
             <p class="boxTitle" id="collectionName">Collection: </p>
             <select id="collectionInput">
-              <option value='Test Collection'>Test Collection</option>
+            
+              <option>Default</option>
+
             </select>
             <button id="collectionAddButton">+</button>
           </div>
@@ -75,11 +77,17 @@
           </div>
           <br><br>
           <button class ="noselect button" id="saveButton">Save</button>
-          
           <button class ="noselect button" id="loadButton">View Saves</button>
         </div>
 
+        <div id="viewSavesWindow">
+        </div>
+
     </div> <!-- ~~~~~ content ~~~~~ -->
+
+<!-- ======= view saves menu ======== -->
+    
+<!-- ================================= -->
 
     <% include ./partials/scripts.ejs %>
     <script src="/socket.io/socket.io.js"></script>
