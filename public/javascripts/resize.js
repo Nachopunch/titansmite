@@ -1,20 +1,20 @@
 $(document).ready(function(){
 
 	function resizeContent(){
-		var contentRatio = 1680/800;
+		var contentRatio = 1680/850;
 		var windowHeight = $(window).innerHeight();
 		var windowWidth = $(window).innerWidth();
 		var windowRatio = windowWidth/windowHeight;
 		var topMenuHeight = $('#topMenu').height();
 	
 		if (windowRatio > contentRatio){
-			$('body').height(Math.floor(windowHeight-topMenuHeight)+"px");
-			$('body').width(Math.floor(windowHeight*contentRatio)+"px");
+			$('#content').height(Math.floor(windowHeight-topMenuHeight)+"px");
+			$('#content').width(Math.floor(windowHeight*contentRatio)+"px");
 		} else {
-			$('body').width(Math.floor(windowWidth)+"px");
-			$('body').height(Math.floor(windowWidth/contentRatio)+"px") ;
+			$('#content').width(Math.floor(windowWidth)+"px");
+			$('#content').height((Math.floor(windowWidth/contentRatio)-topMenuHeight)+"px") ;
 		}
-
+		$('body').css('font-size', $('#content').width()/20+'%');
 	};
 
 	
@@ -25,5 +25,6 @@ $(document).ready(function(){
 		resizeContent();
 
 	});
+
 
 });

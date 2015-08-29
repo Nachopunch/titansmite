@@ -1,20 +1,17 @@
 
 body {
-  height: 100%;
-  width:100%;
   margin: auto;
-
+  position:fixed;
 }
 
 .window {
-	
-	border: .3vh solid rgba(10,25,25,.7);
-	border-radius:3px;
+	border: .2em solid rgba(10,25,25,.7);
+	border-radius:1em;
 }
 
 .button {
-	border: 5px outset gray;
-	border-radius:5px;
+	border: .3em outset gray;
+	border-radius:.5em;
 }
 
 .buttonPressed{
@@ -23,12 +20,12 @@ body {
 
 #content{
 
-	height:95%;
-	width:95%;
+	height:93%;
+	width:100%;
 
 	margin-left: auto;
 	margin-right: auto;
-	margin-top:1%;
+	
 }
 
 .pbColumn{
@@ -38,11 +35,11 @@ body {
 	float:left;
 	padding-left:1%;
 	padding-right:1%;
-	border:2px solid #2D3B4A;
+	border:.2em solid #2D3B4A;
 }
 
 #leftTeamColumn{
-
+	height:100%;
 	width:15%;
 }
 
@@ -61,23 +58,24 @@ body {
 .pickBox{
 	height:15%;
 	width:100%;
-	margin-top:6%;
-	border-radius: 3px;
+	margin-top:5%;
+	border-radius: 1em;
+
 }
 
 .pickIcon{
 	height:75%;
 	width:100%;
 	background-color: rgba(255,255,255, .1);
-	border-radius: 3px;
+	border-radius: .5em;
 }
 .pickIcon img {
 	height:100%;
 	width:100%;
-	border-radius:3px;
+	border-radius:.5em;
 }
 .banIcon{
-	border-radius:3px;
+	border-radius:.5em;
 	margin-top:4%;
 	display:inline-block;
 	height:55%;
@@ -91,12 +89,13 @@ body {
 
 .nextPick {
 	background-color: rgba(255,255,255, .4);
+	transition: opacity 1s;
 }
 
 .banIcon img{
 	height:100%;
 	width:100%;
-	border-radius:3px;
+	border-radius:.5em;
 }
 
 .leftPickBox{
@@ -114,6 +113,7 @@ body {
 	top: 2%;
 	background-color:rgba(0,0,0,.2);
 	text-align: center;
+	font-size:2em;
 	color:white;
 
 }
@@ -137,7 +137,10 @@ body {
 	
 }
 .selected {
-	border: 5px outset yellow;
+	border: .3em outset yellow;
+}
+.button{
+	font-size:1em;
 }
 
 .button:hover{
@@ -159,13 +162,13 @@ body {
 
 .boxTitle{
 	height:25%;
-	font: 3vh "Josefin", sans-serif;
+	font: 2em "Josefin", sans-serif;
 	color:rgb(180,180,180);
 	
 
 	border-radius:3px;
 	padding-left:3%;
-	border-bottom:.2vh solid rgb(120,130,140);
+	border-bottom:.05em solid rgb(120,130,140);
 }
 
 #settingsColumn{
@@ -206,14 +209,16 @@ body {
 	background-color:rgba(0,0,0,.3);
 }
 #saveButton{
+	margin-top:5%;
 	height:8%;
 	width:40%;
 }
 #loadButton{
+	margin-top:5%;
 	height:8%;
 	width:40%;
 	float:right;
-	margin:auto;
+	
 }
 #notesName{
 	height:7%;
@@ -227,30 +232,33 @@ body {
 	border-radius: 3px;
 	border:none;
 	color:rgb(180,180,180);
-	font: 2vh "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 1.2em "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 #draftName{
+	margin-top:5%;
 	height:5%;
 	background-color:rgba(0,0,0,.3);
 }
 #draftNameInput{
 	width:100%;
 	height:4%;
-	font: 2vh "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 1.5em "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 #collectionName{
+	margin-top:5%;
 	height:5%;
 	background-color:rgba(0,0,0,.3);
 }
 #collectionInput{
+
 	width:82%;
 	height:4%;
-	font: 2vh "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 1.5em "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 #collectionAddButton{
 	width:15%;
 	height:4%;
-	font: 2vh "Lucida Grande", Helvetica, Arial, sans-serif;
+	font: 1em "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 #viewSavesWindow{

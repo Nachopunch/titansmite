@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('titansmite:server');
 var http = require('http');
-var mongo = require('mongodb').MongoClient
+
 /**
  * Get port from environment and store in Express.
  */
@@ -36,7 +36,7 @@ server.on('listening', onListening);
 
 
 
-var pbServerModule = require('../modules/pbServerModule.js')(io, mongo);
+var pbServerModule = require('../modules/pbServerModule.js')(io);
 
 
 

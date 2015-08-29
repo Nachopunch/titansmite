@@ -29,7 +29,7 @@ var pbModule = (function(){
 	//get json God Data
 	$.getJSON('/assets/goddata.json', startBoard);
 
-	var socket = io.connect('http://localhost:80');
+	var socket = io.connect('http://107.170.246.231:80');
 
 	function startBoard(jsonData){
 		gods = jsonData;
@@ -54,7 +54,6 @@ var pbModule = (function(){
 
 	function bindEvents (){
 		//local events
-		
 
 		$loadButton.click(function(){
 			$viewSavesWindow.css('display', 'block');
@@ -132,7 +131,7 @@ var pbModule = (function(){
 			title: $draftNameInput.val(),
 			picks: picks,
 			notes: $notesInput.val(),
-			collection: $collectionInput.val()
+			album: $collectionInput.val()
 		});
 	}
 
@@ -142,7 +141,7 @@ var pbModule = (function(){
 		console.log(data);
 		phase = data.picks.length;
 		$notesInput.val(data.notes);
-		$collectionInput.val(data.collection);
+		$collectionInput.val(data.album);
 		$draftNameInput.val(data.title);
 		console.log("board Synced to Server");
 		console.log(data);

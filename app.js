@@ -5,11 +5,24 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var dbConfig = require('./config/db.js');
+var mongoose = require('mongoose');
+var session = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+//load routes
+var routes = require('./routes/index');
+var auth = require('./routes/auth');
 
 var app = express();
+
+// mongoose.connect(dbConfig.url, function(){
+//   console.log('connected to db with mongoose');
+// });
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,10 +34,39 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret: 'titan wins',
+  resave: true,
+  saveUninitialized: false
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Passport Configuration
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+//connect to database
+mongoose.connect(dbConfig.url);
+
+
+//load models
+var Users = require('./models/users.js');
+var PBSaves = require('./models/pbsaves.js');
+
+//define callback for passport using passport-local-mongoose
+passport.use(Users.createStrategy());
+
+passport.serializeUser(Users.serializeUser());
+passport.deserializeUser(Users.deserializeUser());
+
+
+
+//Use Routes
 app.use('/', routes);
-app.use('/users', users);
+app.use('/', auth);
+// app.use('/users', users);
+
 
 
 // catch 404 and forward to error handler
@@ -33,6 +75,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
 
 // error handlers
 
