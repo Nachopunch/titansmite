@@ -7,9 +7,9 @@ var pbServerModule = (function (io){
 		picks: [],
 		phase: 0,
 		title: 'Untitled',
-		album: 'Default',
+		album: 'default',
 		notes: '',
-		albumList: ["None"]
+		albumList: ["default"]
 	}
 
 	console.log('created serverPicks: '+serverState.picks);
@@ -81,7 +81,8 @@ var pbServerModule = (function (io){
 						title: savedDraft.title,
 						picks: savedDraft.picks,
 						notes: savedDraft.notes,
-						album: savedDraft.album
+						album: savedDraft.album,
+						albumList: serverState.albumList
 					});
 					io.emit('message', "Loading draft: "+savedDraft.title);
 				}
@@ -137,10 +138,12 @@ var pbServerModule = (function (io){
 			var whitespacePatt = /^\s*$/
 			if(whitespacePatt.test(data.title) === true){
 				socket.emit('message', 'Invalid draft name.');
+				socket.emit('alert', 'Invalid Draft name.');
 			} else{
 				pbsaves.find({title: data.title}, function (err, res){
 					if (res.length > 0){
-						socket.emit('message', 'A save with this name already exists');
+						socket.emit('message', 'A save with this name already exists.');
+						socket.emit('alert', 'A save with this name already exists.');
 					} else {
 						socket.emit('message', 'Draft was saved as: '+data.title)
 						pbsaves.create({

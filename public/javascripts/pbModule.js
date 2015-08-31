@@ -35,7 +35,16 @@ var pbModule = (function(){
 	//get json God Data
 	$.getJSON('/assets/goddata.json', startBoard);
 
+
+	//======== Digital Ocean Server =======
 	var socket = io.connect('http://107.170.246.231:80');
+
+//-----------------------------------------
+
+	//========== Local Host ==============
+	// var socket = io.connect('http://localhost:80');
+
+
 
 	function startBoard(jsonData){
 		gods = jsonData;
@@ -52,10 +61,10 @@ var pbModule = (function(){
 		$buttons = $el.find('.button');
 	}
 
-	function loadDraft (title){
-		console.log("loading: "+title);
+	function loadDraft (saveID){
+		console.log("loading: "+saveID);
 		$viewSavesWindow.css('display', 'none');
-		socket.emit('load', title);
+		socket.emit('load', saveID);
 	}
 
 	function bindEvents (){
@@ -107,6 +116,7 @@ var pbModule = (function(){
 		socket.on('serverUndo', undoLastPick);
 		socket.on('currentSaves', updateSaves);
 		socket.on('message', displayMessage);
+		socket.on('alert', function(toAlert){alert(toAlert)})
 		socket.on('updateNotes', function (newNotes){
 			$notesInput.empty().val(newNotes);
 		});
@@ -170,7 +180,7 @@ var pbModule = (function(){
 		$('.deleteSaveButton').click(function(evt){
 			evt.stopPropagation();
 			var thisID = $(this).parent().attr('id');
-			if(confirm("Delete this save?")){
+			if(confirm("WARNING: Are you sure you want to delete this save?")){
 				socket.emit('deleteSave', thisID);
 				$viewSavesWindow.css('display', 'none');
 			}
@@ -219,19 +229,16 @@ var pbModule = (function(){
 
 	function syncPicks(data){
 		picks = data.picks;
-		console.log("syncing");
-		console.log(data);
 		phase = data.picks.length;
 		$notesInput.val(data.notes);
 		$collectionInput.val(data.album);
 		albums = data.albumList;
 		$draftNameInput.val(data.title);
-		console.log("board Synced to Server");
-		console.log(data);
-		console.log(phase);
+		console.log("Board Synced to Server - Current phase: "+phase+" - Current Albums: "+albums);
 		drawPicks(data.picks);
 		highlightNextPick();
 		makeAlbumList(albums);
+		$collectionInput.val(data.album);
 	}
 
 	function makeAlbumList (albs){
@@ -239,9 +246,12 @@ var pbModule = (function(){
 		$albumFilter.empty();
 		$albumFilter.append("<option>All</option>")
 		albs.forEach(function(alb){
-			$collectionInput.append("<option>"+alb+"</option>");
-			$albumFilter.append("<option>"+alb+"</option>")
+			$collectionInput.append("<option value="+alb+">"+alb+"</option>");
+			$albumFilter.append("<option value="+alb+">"+alb+"</option>");
 		});
+
+		// $albumFilter.value()
+
 
 	}
 
