@@ -35,7 +35,7 @@ var pbModule = (function(){
 	//get json God Data
 	$.getJSON('/assets/goddata.json', startBoard);
 
-	var socket = io.connect('http://localhost:80');
+	var socket = io.connect('http://107.170.246.231:80');
 
 	function startBoard(jsonData){
 		gods = jsonData;
