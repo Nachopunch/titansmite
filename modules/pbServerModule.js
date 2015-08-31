@@ -9,7 +9,7 @@ var pbServerModule = (function (io){
 		title: 'Untitled',
 		album: 'Default',
 		notes: '',
-		albumList: []
+		albumList: ["None"]
 	}
 
 	console.log('created serverPicks: '+serverState.picks);
