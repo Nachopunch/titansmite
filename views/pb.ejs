@@ -32,7 +32,7 @@
           </div>
 
           <div class="noselect window" id="buttonWindow">
-           <button class="noselect button" id="undoButton">Undo</button> 
+           <button class="noselect button" id="undoButton">Undo</button>
            <button class="noselect button" id="lockButton">Lock<br>(spacebar)</button>
            <button class="noselect button" id="resetButton">Reset</button>
           </div>
@@ -62,13 +62,10 @@
           </div>
           
           <div>
-            <p class="boxTitle" id="collectionName">Collection: </p>
+            <p class="boxTitle" id="collectionName">Album: </p>
             <select id="collectionInput">
-            
-              <option>Default</option>
-
             </select>
-            <button id="collectionAddButton">+</button>
+            <div class="button" id="collectionAddButton"><i class="fa fa-plus"></i></div>
           </div>
           
           <div>
@@ -80,14 +77,53 @@
           <button class ="noselect button" id="loadButton">View Saves</button>
         </div>
 
-        <div id="viewSavesWindow">
-        </div>
+        
 
     </div> <!-- ~~~~~ content ~~~~~ -->
 
 <!-- ======= view saves menu ======== -->
-    
+  <div id="viewSavesWindow">
+    <div id="viewSavesHeader">
+      <h1>(press esc to exit)</h1>
+      <select id="albumFilter">
+
+        <option>All</option>
+
+      </select>
+    </div>
+    <ul id='saveSelectorWindow'>
+    </ul>
+  </div>
 <!-- ================================= -->
+
+<!-- ==== TEMPLATES ==== -->
+<script type="template" id="saveIconTemplate">
+  <li>
+    <div class="saveIcon" id="{{id}}" title="{{notes}}">
+      <i class="fa fa-trash-o deleteSaveButton"></i>
+      <p class="saveIconTitle">{{title}}</p>
+      <div>
+        <div class="saveIconBans">
+          {{#team1Bans}} <img src="/images/godicons/{{.}}.png"> {{/team1Bans}}
+        </div>
+        <div class="saveIconBans" style="float:right">
+          {{#team2Bans}}<img src="/images/godicons/{{.}}.png"> {{/team2Bans}}
+        </div>
+      </div>
+
+      <div class="saveIconPicks" id="saveIconPicksLeft">
+        {{#team1Picks}} <img src="/images/widegodicons/W{{.}}.png"> {{/team1Picks}}
+      </div>
+
+      <div class="saveIconPicks" id="saveIconPicksRight">
+        {{#team2Picks}} <img src="/images/widegodicons/W{{.}}.png"> {{/team2Picks}}
+      </div>
+
+    </div>
+  </li>
+
+</script>
+<!-- ======================= -->
 
     <% include ./partials/scripts.ejs %>
     <script src="/socket.io/socket.io.js"></script>

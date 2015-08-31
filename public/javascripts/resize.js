@@ -1,4 +1,5 @@
-$(document).ready(function(){
+var resizeModule = (function(){
+
 
 	function resizeContent(){
 		var contentRatio = 1680/850;
@@ -6,18 +7,25 @@ $(document).ready(function(){
 		var windowWidth = $(window).innerWidth();
 		var windowRatio = windowWidth/windowHeight;
 		var topMenuHeight = $('#topMenu').height();
-	
+
 		if (windowRatio > contentRatio){
 			$('#content').height(Math.floor(windowHeight-topMenuHeight)+"px");
 			$('#content').width(Math.floor(windowHeight*contentRatio)+"px");
-		} else {
+		} else
+
+		// if (windowWidth*1.5 < windowHeight){
+		// 	console.log("Mobile Mode");
+		// 	$("#middleColumn").insertBefore("#leftTeamColumn");
+		// 	$('#leftTeamColumn').css('display','block');
+		// }else
+
+		{
 			$('#content').width(Math.floor(windowWidth)+"px");
 			$('#content').height((Math.floor(windowWidth/contentRatio)-topMenuHeight)+"px") ;
 		}
-		$('body').css('font-size', $('#content').width()/20+'%');
+		$('#content').css('font-size', $('#content').width()/20+'%');
 	};
 
-	
 
 	resizeContent();
 
@@ -27,4 +35,4 @@ $(document).ready(function(){
 	});
 
 
-});
+})();

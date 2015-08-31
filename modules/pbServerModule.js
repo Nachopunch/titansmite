@@ -8,21 +8,32 @@ var pbServerModule = (function (io){
 		phase: 0,
 		title: 'Untitled',
 		album: 'Default',
-		notes: ''
+		notes: '',
+		albumList: []
 	}
 
 	console.log('created serverPicks: '+serverState.picks);
 
+	pbsaves.find(function (err, res){
+		res.forEach(function(save){
+			if(serverState.albumList.indexOf(save.album) === -1){
+				serverState.albumList.push(save.album);
+			}
+		});
+	});
+
 	// listenForSockets;
 	io.on('connection', function (socket){
 		console.log("Client connected, new socket issued: "+socket.id);
+		console.log("")
 
 		//=== Initiate board on socket connect ===
 		socket.emit('init', {
 			title: serverState.title,
 			picks: serverState.picks,
 			notes: serverState.notes,
-			album: serverState.album
+			album: serverState.album,
+			albumList: serverState.albumList
 		});
 
 		//=== Listen for socket events ===
@@ -37,13 +48,29 @@ var pbServerModule = (function (io){
 				console.log(res);
 			});
 		});
+		socket.on('deleteSave', function (id){
+			console.log("removing save "+id);
+			pbsaves.find({"_id":id}).remove().exec();
+		});
+		socket.on('notesChanged', function(newNotes){
+			serverState.notes = newNotes;
+			socket.broadcast.emit('updateNotes', newNotes);
+		});
+		socket.on('addAlbum', function(albumToAdd){
+			if(serverState.albumList.indexOf(albumToAdd) > 0){
+				socket.emit('message', "An album with that name already exists");
+			}else{
+				serverState.albumList.push(albumToAdd);
+				io.emit('updateAlbumList', serverState.albumList);
+			}
+		});
 
-		function recClientLoad(saveName){
-			pbsaves.findOne( {title: saveName},  function (err, savedDraft){
+		function recClientLoad(saveID){
+			pbsaves.findOne( {"_id": saveID},  function (err, savedDraft){
 				if(err){
 					throw err;
 					socket.emit('message', err)
-				}
+				} if (savedDraft){
 					console.log(savedDraft);
 					serverState.picks = savedDraft.picks;
 					serverState.phase = savedDraft.picks.length;
@@ -56,7 +83,8 @@ var pbServerModule = (function (io){
 						notes: savedDraft.notes,
 						album: savedDraft.album
 					});
-					io.emit('message', savedDraft.title+" was loaded.")
+					io.emit('message', "Loading draft: "+savedDraft.title);
+				}
 			});
 		}
 
@@ -89,8 +117,10 @@ var pbServerModule = (function (io){
 				title: serverState.title,
 				picks: serverState.picks,
 				notes: serverState.notes,
-				album: serverState.album
+				album: serverState.album,
+				albumList: serverState.albumList
 			});
+			io.emit('message', "Draft has been reset");
 		}
 
 		//recieve client undo function
@@ -100,18 +130,19 @@ var pbServerModule = (function (io){
 			console.log('Last pick was undone');
 			console.log('current picks(server): '+serverState.picks);
 			io.emit('serverUndo', serverState.picks);
+			io.emit('message', "Last pick has been undone");
 		}
 
 		function saveDraft(data){
 			var whitespacePatt = /^\s*$/
 			if(whitespacePatt.test(data.title) === true){
-				socket.emit('message', 'Invalid draft name');
+				socket.emit('message', 'Invalid draft name.');
 			} else{
 				pbsaves.find({title: data.title}, function (err, res){
 					if (res.length > 0){
 						socket.emit('message', 'A save with this name already exists');
 					} else {
-						socket.emit('message', 'Draft was saved as '+data.title)
+						socket.emit('message', 'Draft was saved as: '+data.title)
 						pbsaves.create({
 							title: data.title,
 							picks: data.picks,

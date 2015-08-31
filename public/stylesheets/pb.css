@@ -1,31 +1,31 @@
-
+html{
+	overflow:auto;
+}
 body {
   margin: auto;
   position:fixed;
+  overflow:auto;
 }
 
 .window {
 	border: .2em solid rgba(10,25,25,.7);
-	border-radius:1em;
+	border-radius:.2em;
 }
 
 .button {
-	border: .3em outset gray;
+	border: .5em outset gray;
 	border-radius:.5em;
 }
 
 .buttonPressed{
-	border-style: inset;
+	border-style:inset;
 }
 
 #content{
-
 	height:93%;
 	width:100%;
-
 	margin-left: auto;
 	margin-right: auto;
-	
 }
 
 .pbColumn{
@@ -39,13 +39,10 @@ body {
 }
 
 #leftTeamColumn{
-	height:100%;
 	width:15%;
 }
 
 #rightTeamColumn{
-
-
 	width:15%;
 }
 
@@ -59,14 +56,14 @@ body {
 	height:15%;
 	width:100%;
 	margin-top:5%;
-	border-radius: 1em;
+	border-radius: .4em;
 
 }
 
 .pickIcon{
 	height:75%;
 	width:100%;
-	background-color: rgba(255,255,255, .1);
+	background-color: rgba(150,150,150, .1);
 	border-radius: .5em;
 }
 .pickIcon img {
@@ -76,6 +73,7 @@ body {
 }
 .banIcon{
 	border-radius:.5em;
+	margin:auto;
 	margin-top:4%;
 	display:inline-block;
 	height:55%;
@@ -89,7 +87,6 @@ body {
 
 .nextPick {
 	background-color: rgba(255,255,255, .4);
-	transition: opacity 1s;
 }
 
 .banIcon img{
@@ -99,10 +96,10 @@ body {
 }
 
 .leftPickBox{
-	background-color: rgb(40,50,120);
+	background-color: rgb(30,40,110);
 }
 .rightPickBox{
-	background-color: rgb(100,40,30);
+	background-color: rgb(80,30,30);
 }
 
 
@@ -113,8 +110,9 @@ body {
 	top: 2%;
 	background-color:rgba(0,0,0,.2);
 	text-align: center;
-	font-size:2em;
+	font-size:1.6em;
 	color:white;
+	font-family: Arial;
 
 }
 
@@ -137,7 +135,7 @@ body {
 	
 }
 .selected {
-	border: .3em outset yellow;
+	border-color: yellow;
 }
 .button{
 	font-size:1em;
@@ -164,11 +162,10 @@ body {
 	height:25%;
 	font: 2em "Josefin", sans-serif;
 	color:rgb(180,180,180);
-	
 
 	border-radius:3px;
 	padding-left:3%;
-	border-bottom:.05em solid rgb(120,130,140);
+	border-bottom:.1em solid rgb(120,130,140);
 }
 
 #settingsColumn{
@@ -218,7 +215,6 @@ body {
 	height:8%;
 	width:40%;
 	float:right;
-	
 }
 #notesName{
 	height:7%;
@@ -232,7 +228,7 @@ body {
 	border-radius: 3px;
 	border:none;
 	color:rgb(180,180,180);
-	font: 1.2em "Lucida Grande", Helvetica, Arial, sans-serif;
+	font-size: 1.2em
 }
 #draftName{
 	margin-top:5%;
@@ -241,39 +237,122 @@ body {
 }
 #draftNameInput{
 	width:100%;
-	height:4%;
-	font: 1.5em "Lucida Grande", Helvetica, Arial, sans-serif;
+	height:1.8em;
+	font-size: 1.5em
 }
+
+
 #collectionName{
-	margin-top:5%;
-	height:5%;
+	margin-top:5%;;
+	font-size:2em;
 	background-color:rgba(0,0,0,.3);
 }
 #collectionInput{
-
 	width:82%;
-	height:4%;
-	font: 1.5em "Lucida Grande", Helvetica, Arial, sans-serif;
+	height:1.8em;
+	font-size: 1.5em
 }
 #collectionAddButton{
-	width:15%;
-	height:4%;
-	font: 1em "Lucida Grande", Helvetica, Arial, sans-serif;
+	display:inline-block;
+	background-color:rgb(100,100,100);
+	text-align:center;
+	width:16%;
+	height:2em;
+	font-size: 1.8em;
 }
 
+
 #viewSavesWindow{
+	color:white;
 	display:none;
 	position:fixed;
 	top:0;
 	left:0;
 	width:100%;
 	height:100%;
-	background-color:rgba(0,0,0,.5);
+	background-color:rgba(0,0,0,.7);
+	overflow:auto;
+}
+#viewSavesHeader{
+	font-family:Arial;
+	margin:auto;
+	text-align: center;
+}
+
+#saveSelectorWindow{
+	margin: auto;
+	width:80%;
+	height:80%;
+}
+#saveSelectorWindow li{
+	display:inline-block;
+	float:top;
 }
 .saveIcon{
+	border-radius:5px;
 	display:inline-block;
+	padding:5px;
 	margin:10px;
-	height:100px;
-	width:100px;
-	background-color:red;
+	vertical-align:middle;
+	height:280px;
+	width:200px;
+	background-color:rgba(150,150,150,.9);
+}
+.deleteSaveButton{
+	background-color:rgb(120,120,120);
+	padding:1%;
+	float:right;
+}
+/*
+#middleColumn{
+	float:left;
+}*/
+
+/*#rightTeamColumn{
+	float:left;
+	display:block;
+}*/
+/*
+#leftTeamColumn{
+	float:right;
+}*/
+
+#viewSavesWindow select{
+	width:200px;
+}
+
+.saveIconTitle{
+	font-family: Arial;
+	color:white;
+	font-size:18px;
+	height:40px;
+	background-color:rgb(80,80,80);
+}
+
+.saveIconBans{
+	display:inline-block;
+	margin-top:2%;
+	height:25px;
+}
+.saveIconBans img{
+	position:relative;
+	height:100%;
+	margin:auto;
+}
+
+.saveIconPicks{
+	margin-top:5%;
+	display:inline-block;
+	width:45%;
+	height:70%;
+}
+
+.saveIconPicks img{
+	height:18%;
+}
+#saveIconPicksRight{
+	float:right;
+}
+#saveIconPicksLeft{
+	float:left;
 }

@@ -4,9 +4,10 @@ var pbModule = (function(){
 	var selectedGod = "";
 	var phase = picks.length;
 	var saves = [];
+	var albums = [];
 
 	//cache DOM
-	var $el = $('#content');
+	var $el = $('body');
 	var $godsWindow = $el.find('#godsWindow');
 	var $lockButton = $el.find('#lockButton');
 	var $resetButton = $el.find('#resetButton');
@@ -21,15 +22,20 @@ var pbModule = (function(){
 	var $draftNameInput = $el.find('#draftNameInput');
 	var $notesInput = $el.find('#notesInput');
 	var $collectionInput = $el.find('#collectionInput');
+	var $collectionAddButton = $el.find('#collectionAddButton');
 	var $viewSavesWindow = $el.find('#viewSavesWindow');
+	var $saveSelectorWindow = $el.find('#saveSelectorWindow');
+	var $albumFilter = $el.find('#albumFilter');
 
 	var $godBoxes = null;
 	var $buttons = null;
 
+
+
 	//get json God Data
 	$.getJSON('/assets/goddata.json', startBoard);
 
-	var socket = io.connect('http://107.170.246.231:80');
+	var socket = io.connect('http://localhost:80');
 
 	function startBoard(jsonData){
 		gods = jsonData;
@@ -49,28 +55,45 @@ var pbModule = (function(){
 	function loadDraft (title){
 		console.log("loading: "+title);
 		$viewSavesWindow.css('display', 'none');
-		socket.emit('load', title)
+		socket.emit('load', title);
 	}
 
 	function bindEvents (){
 		//local events
 
 		$loadButton.click(function(){
+			$saveSelectorWindow.empty();
 			$viewSavesWindow.css('display', 'block');
 			socket.emit('getSaves');
-		})
+		});
 
 		$godBoxes.click(selectGod);
 		$buttons.mousedown(buttonPress);
 		$(document).mouseup(buttonUp);
 		$(document).keydown(function(event){
-			console.log(event);
+			// console.log(event);
 			if((event.which === 32 || event.which === 13) && $('#notesInput').is(":focus") !== true && $('#draftNameInput').is(":focus") !== true){
 				event.preventDefault();
 				pressLockButton();
 			}
 			if(event.which === 27){
 				$viewSavesWindow.css('display', 'none');
+			}
+		});
+
+		$notesInput.on("change keyup paste", function(){
+			socket.emit('notesChanged', $notesInput.val());
+		});
+
+		$albumFilter.on("change", function(){
+			$saveSelectorWindow.empty();
+			drawSaveIcons(saves);
+		});
+
+		$collectionAddButton.click(function(){
+			var newAlbum = prompt("New album name:");
+			if(newAlbum){
+				socket.emit('addAlbum', newAlbum);
 			}
 		});
 
@@ -82,20 +105,78 @@ var pbModule = (function(){
 		socket.on('init', syncPicks);
 		socket.on('serverLock', serverPickHandler);
 		socket.on('serverUndo', undoLastPick);
-		socket.on('currentSaves', function(res){
-			$viewSavesWindow.empty();
-			res.forEach(function(save){
-				$viewSavesWindow.append('<div class="saveIcon" id="'+save.title+'">'+save.title+'</div>');
-			});
-
-			$('.saveIcon').click(function(){
-				loadDraft($(this).attr('id'));
-			});
-
+		socket.on('currentSaves', updateSaves);
+		socket.on('message', displayMessage);
+		socket.on('updateNotes', function (newNotes){
+			$notesInput.empty().val(newNotes);
 		});
-		socket.on('message', displayMessage)
+		socket.on('updateAlbumList', function (newAlbums){
+			albums = newAlbums;
+			makeAlbumList(albums);
+		});
+
 	}
 
+	var saveIconTemplate = $('#saveIconTemplate').html();
+
+	function updateSaves (res){
+		saves = res;
+		drawSaveIcons(saves);
+	}
+
+	function drawSaveIcons (toDraw){
+
+		toDraw.forEach(function (save){
+			if (save.album === $albumFilter.val() || $albumFilter.val() === "All"){
+				var team1Bans = [];
+				var team2Bans = [];
+				var team1Picks = [];
+				var team2Picks = [];
+
+				if(save.picks[0]){team1Bans.push(save.picks[0])}
+				if(save.picks[1]){team2Bans.push(save.picks[1])}
+				if(save.picks[2]){team1Bans.push(save.picks[2])}
+				if(save.picks[3]){team2Bans.push(save.picks[3])}
+				if(save.picks[4]){team1Picks.push(save.picks[4])}
+				if(save.picks[5]){team2Picks.push(save.picks[5])}
+				if(save.picks[6]){team2Picks.push(save.picks[6])}
+				if(save.picks[7]){team1Picks.push(save.picks[7])}
+				if(save.picks[8]){team1Picks.push(save.picks[8])}
+				if(save.picks[9]){team2Picks.push(save.picks[9])}
+				if(save.picks[10]){team2Bans.push(save.picks[10])}
+				if(save.picks[11]){team1Bans.push(save.picks[11])}
+				if(save.picks[12]){team2Picks.push(save.picks[12])}
+				if(save.picks[13]){team1Picks.push(save.picks[13])}
+				if(save.picks[14]){team1Picks.push(save.picks[14])}
+				if(save.picks[15]){team2Picks.push(save.picks[15])}
+
+				// console.log(team1Bans);
+				// console.log(Mustache.to_html(saveIconTemplate, {id: save._id, title: save.title, picks: save.picks}));
+				$saveSelectorWindow.append(Mustache.to_html(saveIconTemplate, {
+					id: save._id,
+					title: save.title,
+					team1Bans: team1Bans,
+					team2Bans: team2Bans,
+					team1Picks: team1Picks,
+					team2Picks: team2Picks,
+					notes: save.notes
+				}));
+			}
+		});
+
+		$('.saveIcon').click(function(){
+			loadDraft($(this).attr('id'));
+		});
+		$('.deleteSaveButton').click(function(evt){
+			evt.stopPropagation();
+			var thisID = $(this).parent().attr('id');
+			if(confirm("Delete this save?")){
+				socket.emit('deleteSave', thisID);
+				$viewSavesWindow.css('display', 'none');
+			}
+		})
+
+	}
 	function displayMessage (message){
 		$statusWindow.html("<p>"+message+"</p>")
 	}
@@ -121,6 +202,7 @@ var pbModule = (function(){
 
 	function pressResetButton (){
 		socket.emit('reset');
+		socket.emit('message', "Drafts have been reset...");
 	}
 	function pressUndoButton(){
 		socket.emit('undo');
@@ -142,12 +224,25 @@ var pbModule = (function(){
 		phase = data.picks.length;
 		$notesInput.val(data.notes);
 		$collectionInput.val(data.album);
+		albums = data.albumList;
 		$draftNameInput.val(data.title);
 		console.log("board Synced to Server");
 		console.log(data);
 		console.log(phase);
 		drawPicks(data.picks);
 		highlightNextPick();
+		makeAlbumList(albums);
+	}
+
+	function makeAlbumList (albs){
+		$collectionInput.empty();
+		$albumFilter.empty();
+		$albumFilter.append("<option>All</option>")
+		albs.forEach(function(alb){
+			$collectionInput.append("<option>"+alb+"</option>");
+			$albumFilter.append("<option>"+alb+"</option>")
+		});
+
 	}
 
 	function serverPickHandler (data){
