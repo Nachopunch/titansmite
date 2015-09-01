@@ -9,26 +9,27 @@ router.get('/register', function (req, res, next){
 
 router.post('/register', function (req, res, next){
 	Users.register(new Users({
-		username : req.body.username 
-	}), req.body.password, function(err, user) {
+		username : req.body.username
+	}), req.body.password, function (err, user) {
 		if(err) {
 			console.log(err);
 			return res.send(err);
-		}else{
-			req.login(user, function (err){
-				res.redirect('/');
-			});
 		}
+		req.login(user, function (err){
+			res.redirect('/home');
+		});
+		
 	});
 });
 
 router.get('/login', function (req, res, next){
-	res.render('login', {title: req.user});
+	res.render('login');
 });
 
-router.post('/login', passport.authenticate('local'), function (req, res, next){
-	res.redirect('/');
-});
+router.post('/login', passport.authenticate('local',{
+	successRedirect: '/home',
+    failureRedirect: '/login'})
+);
 
 router.all('/logout', function (req, res, next){
 	req.logout();

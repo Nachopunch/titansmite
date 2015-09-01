@@ -112,6 +112,7 @@ var pbModule = (function(){
 		$undoButton.click(pressUndoButton);
 		$saveButton.click(pressSaveButton);
 		socket.on('init', syncPicks);
+		socket.on('boardReset', resetBoard);
 		socket.on('serverLock', serverPickHandler);
 		socket.on('serverUndo', undoLastPick);
 		socket.on('currentSaves', updateSaves);
@@ -241,6 +242,14 @@ var pbModule = (function(){
 		$collectionInput.val(data.album);
 	}
 
+	function resetBoard (data){
+		picks = data.picks
+		phase = data.picks.length;
+		console.log("Board Reset - Current phase: "+phase+" - Current Albums: "+albums);
+		drawPicks(data.picks);
+		highlightNextPick();
+	}
+
 	function makeAlbumList (albs){
 		$collectionInput.empty();
 		$albumFilter.empty();
@@ -294,7 +303,10 @@ var pbModule = (function(){
 				$el.find('#pick'+phase).html('<img class="noselect" src="/images/widegodicons/W' +data+ '.png">');
 			}
 			$el.find('#'+data).addClass('unavailable');
-			$el.find('#name'+phase).html(findLongName(data));
+
+			var godLName = findLongName(data);
+			$el.find('#name'+phase).html(godLName);
+			displayMessage(godLName+' was picked');
 		}
 	}
 	function findLongName(shortname){

@@ -6,7 +6,7 @@ var pbServerModule = (function (io){
 	var serverState = {
 		picks: [],
 		phase: 0,
-		title: 'Untitled',
+		title: 'untitled',
 		album: 'default',
 		notes: '',
 		albumList: ["default"]
@@ -84,7 +84,7 @@ var pbServerModule = (function (io){
 						album: savedDraft.album,
 						albumList: serverState.albumList
 					});
-					io.emit('message', "Loading draft: "+savedDraft.title);
+					io.emit('message', "Loaded draft: "+savedDraft.title);
 				}
 			});
 		}
@@ -110,18 +110,14 @@ var pbServerModule = (function (io){
 		function recClientReset (){
 			serverState.picks = [];
 			serverState.phase = serverState.picks.length;
-			serverState.notes = '';
-			serverState.title = 'Untitled';
+			// serverState.notes = '';
+			// serverState.title = 'untitled';
 			console.log("The picks have been reset(server): "+serverState.picks);
 			console.log('(server) Phase: ' + serverState.phase + '. Picks: '+serverState.picks);
-	    	io.emit('init', {
-				title: serverState.title,
-				picks: serverState.picks,
-				notes: serverState.notes,
-				album: serverState.album,
-				albumList: serverState.albumList
+	    	io.emit('boardReset', {
+				picks: serverState.picks
 			});
-			io.emit('message', "Draft has been reset");
+			io.emit('message', "The board has been reset");
 		}
 
 		//recieve client undo function
@@ -137,15 +133,14 @@ var pbServerModule = (function (io){
 		function saveDraft(data){
 			var whitespacePatt = /^\s*$/
 			if(whitespacePatt.test(data.title) === true){
-				socket.emit('message', 'Invalid draft name.');
 				socket.emit('alert', 'Invalid Draft name.');
 			} else{
 				pbsaves.find({title: data.title}, function (err, res){
 					if (res.length > 0){
-						socket.emit('message', 'A save with this name already exists.');
 						socket.emit('alert', 'A save with this name already exists.');
 					} else {
-						socket.emit('message', 'Draft was saved as: '+data.title)
+						io.emit('message', 'Draft was saved as: '+data.title)
+						socket.emit('alert', 'Draft was saved as: '+data.title)
 						pbsaves.create({
 							title: data.title,
 							picks: data.picks,

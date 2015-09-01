@@ -28,6 +28,10 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//load models
+var Users = require('./models/users.js');
+var PBSaves = require('./models/pbsaves.js');
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -50,9 +54,7 @@ app.use(passport.session());
 mongoose.connect(dbConfig.url);
 
 
-//load models
-var Users = require('./models/users.js');
-var PBSaves = require('./models/pbsaves.js');
+
 
 //define callback for passport using passport-local-mongoose
 passport.use(Users.createStrategy());
